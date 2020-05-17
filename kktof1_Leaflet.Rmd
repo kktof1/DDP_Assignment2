@@ -1,0 +1,49 @@
+---
+title: "Leaflet_Excercise"
+author: "kktof1"
+date: '2020 5 16 '
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Libraries
+library(dplyr)
+library(leaflet)
+```
+
+### Mapping Clusters Test by KKTOF1 @ 2020. May. 16th
+
+This document is to check how the Leaflet is working on R Studio
+
+1. Putting heartIcon to the Johns Hopkins university  
+  
+```{r, echo=FALSE}
+heartIcon <- makeIcon(
+        iconUrl = "https://github.com/kktof1/DDP_Assignment2/blob/master/heart.png?raw=true",
+        iconWidth = 64, iconHeight = 64, iconAnchorX = 32, iconAnchorY = 32
+)
+
+hopkinsLatLong <- data.frame(
+        lat = c( 39.2973166,  39.3288851,  39.2906617,  39.2970681,  39.2824806),
+        lng = c(-76.5929798, -76.6206598, -76.5469683, -76.6150537, -76.6016766)
+)
+
+hopkinsLatLong %>%
+        leaflet() %>%
+        addTiles() %>%
+        addMarkers(icon = heartIcon)
+```
+  
+2. Putting cluster markers at Baltimore city  
+  
+```{r, echo=FALSE}
+set.seed("20200516")
+df <- data.frame(lat=runif(700, min=39.25, max=39.35),
+                 lng=runif(700, min=-76.65, max=-76.55))
+df %>%
+        leaflet() %>%
+        addTiles() %>%
+        addMarkers(clusterOptions = markerClusterOptions())
+```
