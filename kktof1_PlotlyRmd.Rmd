@@ -1,0 +1,48 @@
+---
+title: "R_Markdown&Plotly"
+author: "kktof1"
+date: '2020 5 24 '
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+library(plotly)
+library(ggplot2)
+```
+
+## Developing Data Product Assignment 3
+
+This is a docoument which is for the Assignment 3 of Developing Data Product by Johns Hopkins University at Coursera.  
+  
+  
+```{r warning = FALSE, message = FALSE}
+
+# data(mtcars)
+# plot_ly(data = mtcars, x = mtcars$wt, y = mtcars$mpg, mode = "markers",
+#         color = as.factor(mtcars$cyl), size = mtcars$hp)
+
+# set.seed(20200524)
+# temp <- rnorm(100, mean = 30, sd = 5)
+# pressue <- rnorm(100)
+# dtime <- 1:100
+# plot_ly(x = temp, y = pressue, z = dtime,
+#         type = "scatter3d", mode = "markers", color = temp)
+
+data(diamonds)
+set.seed(100)
+d <- diamonds[sample(nrow(diamonds), 1000),]
+
+p <- ggplot(data = d, aes(x = carat, y = price)) +
+        geom_point(aes(text = paste("Clarity:", clarity)), size = 2) +
+        geom_smooth(aes(color = cut, fill = cut)) +
+        facet_wrap(~ cut)
+
+(gg <- ggplotly(p))
+
+```
+
+  
+This is the end of this document.  
+Thanks!
